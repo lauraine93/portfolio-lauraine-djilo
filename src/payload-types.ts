@@ -229,6 +229,8 @@ export interface Media {
    * Décrit l’image pour les personnes qui ne la voient pas (lecteurs d’écran, image non chargée). Obligatoire dans les deux langues.
    */
   alt: string;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -902,6 +904,8 @@ export interface LegalPagesSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

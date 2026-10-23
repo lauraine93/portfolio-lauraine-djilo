@@ -8,6 +8,10 @@ const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  // Photos du contenu de départ, lues par le bouton d’installation du back-office.
+  outputFileTracingIncludes: {
+    '/api/[...slug]': ['./src/seed/assets/**'],
+  },
   images: {
     localPatterns: [
       {

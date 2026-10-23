@@ -97,15 +97,36 @@ src/
   seed/                      contenu de départ et photos
 ```
 
-## Mise en production
+## Mise en production (Vercel + Neon)
 
-Le site, le back-office et les statistiques forment une seule application : un seul déploiement suffit.
+Le site, le back-office et les statistiques forment une seule application : un seul déploiement suffit. Aucune commande n’est nécessaire en production.
 
-1. Créer une base PostgreSQL (par exemple Neon ou Supabase, offre gratuite suffisante au démarrage) et renseigner `DATABASE_URL`.
-2. Définir `PAYLOAD_SECRET` (long et aléatoire), `NEXT_PUBLIC_SERVER_URL` (l’adresse publique) et `SHOW_EXAMPLE_CONTENT=false`.
-3. Prévoir un stockage durable pour les médias : sur un hébergeur sans disque persistant (Vercel), ajouter l’adaptateur de stockage S3 / Cloudflare R2 de Payload.
-4. Déployer : `npm run build` puis `npm start` sur un serveur Node, ou import du dépôt sur Vercel.
-5. Lancer `npm run seed` une fois sur la base de production (avec `SEED_ADMIN_EMAIL` et `SEED_ADMIN_PASSWORD`), puis remplacer le contenu d’exemple.
-6. Compléter la page « Mentions légales » avec les coordonnées de l’hébergeur.
+1. **Neon** : créer un projet en région *AWS Europe Central 1 (Frankfurt)* et copier l’adresse de connexion avec *Connection pooling* activé.
+2. **Vercel** : importer le dépôt GitHub. Le site tourne à Francfort (`vercel.json`), à côté de la base.
+3. **Stockage** : dans le projet Vercel, onglet *Storage*, créer un stockage *Blob* et le relier au projet. La variable `BLOB_READ_WRITE_TOKEN` est ajoutée toute seule.
+4. **Variables d’environnement** (*Settings › Environment Variables*) :
 
-SQLite (`file:./portfolio.db`) ne convient qu’au développement local : les hébergeurs sans disque persistant l’effaceraient à chaque déploiement.
+   | Nom | Valeur |
+   | --- | --- |
+   | `DATABASE_URL` | l’adresse Neon (pooled) |
+   | `PAYLOAD_SECRET` | une longue clé aléatoire |
+   | `ADMIN_EMAIL` | l’e-mail du compte administratrice |
+   | `ADMIN_PASSWORD` | un mot de passe provisoire solide |
+   | `SHOW_EXAMPLE_CONTENT` | `false` |
+
+5. **Déployer**. Au premier démarrage, les tables sont créées automatiquement (migrations du dossier `src/migrations`), ainsi que le compte administratrice.
+6. **Ouvrir `/admin`**, se connecter, puis cliquer sur **Installer le contenu de départ** sur le tableau de bord. Le bouton n’apparaît que tant que le site est vide.
+7. Changer le mot de passe dans le back-office, puis supprimer `ADMIN_EMAIL` et `ADMIN_PASSWORD` de Vercel.
+8. Compléter les mentions légales (hébergeur : Vercel Inc.) et remplacer le contenu d’exemple.
+
+### Faire évoluer le modèle de contenu
+
+Après avoir modifié une collection ou un global, il faut générer une migration contre une base PostgreSQL, puis la committer :
+
+```bash
+DATABASE_URL=postgresql://… npm run migrate:create nom-du-changement
+```
+
+Elle sera appliquée automatiquement au prochain déploiement.
+
+SQLite (`file:./portfolio.db`) ne sert qu’au développement local.

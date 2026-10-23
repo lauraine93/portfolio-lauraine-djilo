@@ -24,9 +24,11 @@ import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0
 import { ColorField as ColorField_f18d715b9f5ea63091d1361f9c46fa22 } from '../../../components/admin/ColorField'
 import { ThemePreview as ThemePreview_11fde4a4c7615e11dd7b90d24f5274da } from '../../../components/admin/ThemePreview'
 import { StatsNavLink as StatsNavLink_a051390eb9301b4610a469d9947a88d7 } from '../../../components/admin/stats/StatsNavLink'
+import { SetupBanner as SetupBanner_72fe7a274c9fc9c19dae5ebdfa3cc11b } from '../../../components/admin/SetupBanner'
 import { StatsSummary as StatsSummary_ee511db27cabc9c930e846ceb639bbbd } from '../../../components/admin/stats/StatsSummary'
 import { StatsView as StatsView_93fd534231603209f52ec89927b99bb5 } from '../../../components/admin/stats/StatsView'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
@@ -56,7 +58,9 @@ export const importMap = {
   "/components/admin/ColorField#ColorField": ColorField_f18d715b9f5ea63091d1361f9c46fa22,
   "/components/admin/ThemePreview#ThemePreview": ThemePreview_11fde4a4c7615e11dd7b90d24f5274da,
   "/components/admin/stats/StatsNavLink#StatsNavLink": StatsNavLink_a051390eb9301b4610a469d9947a88d7,
+  "/components/admin/SetupBanner#SetupBanner": SetupBanner_72fe7a274c9fc9c19dae5ebdfa3cc11b,
   "/components/admin/stats/StatsSummary#StatsSummary": StatsSummary_ee511db27cabc9c930e846ceb639bbbd,
   "/components/admin/stats/StatsView#StatsView": StatsView_93fd534231603209f52ec89927b99bb5,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }
